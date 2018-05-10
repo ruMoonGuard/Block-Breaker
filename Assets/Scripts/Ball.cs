@@ -1,18 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Ball : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    public Paddle Paddle;
+
+    private bool hasStarted = false;
+    private Vector3 paddleToBallVector;
+
+    private Rigidbody2D body2D;
+
+    // Use this for initialization
+    void Start ()
+    {
+        body2D = GetComponent<Rigidbody2D>();
+
+        paddleToBallVector = this.transform.position - Paddle.transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        var mousePositionToBlock = Mathf.Clamp((Input.mousePosition.x / Screen.width) * 16, 0.5f, 15.5f);
+	void Update ()
+    {
+		if(!hasStarted)
+        {
+            this.transform.position = Paddle.transform.position + paddleToBallVector;
 
-        this.transform.position = new Vector3(mousePositionToBlock, this.transform.position.y, 0f);
+            if (Input.GetMouseButtonDown(0))
+            {
+                body2D.velocity = new Vector2(2f, 10f);
+                hasStarted = true;
+            }
+        }
 	}
 }
