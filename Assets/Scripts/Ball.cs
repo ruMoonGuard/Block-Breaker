@@ -15,6 +15,11 @@ public class Ball : MonoBehaviour {
     {
         body2D = GetComponent<Rigidbody2D>();
 
+        if(Paddle == null)
+        {
+            Paddle = FindObjectOfType<Paddle>();
+        }
+        
         paddleToBallVector = this.transform.position - Paddle.transform.position;
 	}
 	
