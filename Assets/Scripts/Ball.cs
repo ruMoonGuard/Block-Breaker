@@ -37,4 +37,14 @@ public class Ball : MonoBehaviour {
             }
         }
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(hasStarted)
+        {
+            var tweak = new Vector2(Random.Range(0.1f, 0.2f), Random.Range(0.1f, 0.2f));
+
+            body2D.velocity += tweak;
+        }
+    }
 }

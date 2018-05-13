@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04574f055dada6944a05931c752edc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Crack: {fileID: 8300000, guid: 4b514d218d247d446b93d050b0796bf3, type: 3}
+  Smoke: {fileID: 0}
   HitSprites: []
   timesHit: 0
 --- !u!212 &212806838604974716

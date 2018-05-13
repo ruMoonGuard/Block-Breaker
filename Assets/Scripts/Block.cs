@@ -2,21 +2,34 @@
 
 public class Block : MonoBehaviour
 {
-    //public bool IsDestroy = false;
+    public static int BreakableCount = 0;
+
+    public AudioClip Crack;
+    public GameObject Smoke;
     public Sprite[] HitSprites;
 
     [SerializeField]
     private int timesHit;
+    private bool isBreakable;
+
     private SpriteRenderer spriteRenderer;
+    private LevelManager levelManager;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        levelManager = FindObjectOfType<LevelManager>();
+
+        isBreakable = this.CompareTag("Breakable");
+        if(isBreakable)
+        {
+            BreakableCount++;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        bool isBreakable = this.CompareTag("Breakable");
+        AudioSource.PlayClipAtPoint(Crack, transform.position);
         if(isBreakable)
         {
             HandleHits();
@@ -29,6 +42,9 @@ public class Block : MonoBehaviour
         timesHit++;
         if (timesHit >= maxHit)
         {
+            BreakableCount--;
+            levelManager.BlockDestroed();
+            CreateSmoke();
             Destroy(gameObject);
         }
         else
@@ -37,10 +53,26 @@ public class Block : MonoBehaviour
         }
     }
 
+    private void CreateSmoke()
+    {
+        var positionSmoke = new Vector3(gameObject.transform.position.x + 0.5f, gameObject.transform.position.y + 0.5f, 0f);
+        var smokeObject = Instantiate(Smoke, positionSmoke, Quaternion.identity);
+        var colorBlock = spriteRenderer.color;
+        var psMain = smokeObject.GetComponent<ParticleSystem>().main;
+        psMain.startColor = new Color(colorBlock.r, colorBlock.g, colorBlock.b);
+    }
+
     private void LoadSprite()
     {
         var spriteIndex = timesHit - 1;
-        spriteRenderer.sprite = HitSprites[spriteIndex];
+        if(HitSprites[spriteIndex])
+        {
+            spriteRenderer.sprite = HitSprites[spriteIndex];
+        }
+        else
+        {
+            Debug.LogError("Block's sprite missing");
+        }
     }
 
 }
