@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 61625201878488926}
   - component: {fileID: 114491745106698926}
   m_Layer: 0
-  m_Name: Block 2 hit
-  m_TagString: Breakable
+  m_Name: Indestructible
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04574f055dada6944a05931c752edc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSprites:
-  - {fileID: 21300006, guid: 82dc1afa1fc4646439b5e2ecd2b674dc, type: 3}
+  HitSprites: []
   timesHit: 0
 --- !u!212 &212806838604974716
 SpriteRenderer:
@@ -117,7 +116,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 82dc1afa1fc4646439b5e2ecd2b674dc, type: 3}
-  m_Color: {r: 0.29365098, g: 0.9529412, b: 0.023529397, a: 1}
+  m_Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
